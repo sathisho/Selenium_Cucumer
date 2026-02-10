@@ -93,7 +93,7 @@ public class ProductsPage {
     
     // Menu operations
     public void openMenu() {
-        actions.click(menuButton);
+        actions.jsClick(menuButton);
     }
     
     public void logout() {
