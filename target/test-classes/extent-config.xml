@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- Report theme: STANDARD or DARK -->
+        <theme>STANDARD</theme>
+        
+        <!-- Document encoding -->
+        <encoding>UTF-8</encoding>
+        
+        <!-- Protocol for script and stylesheets: HTTP or HTTPS -->
+        <protocol>HTTPS</protocol>
+        
+        <!-- Title of the document -->
+        <documentTitle>Automation Test Report</documentTitle>
+        
+        <!-- Name of the report -->
+        <reportName>Selenium Cucumber BDD Test Results</reportName>
+        
+        <!-- Timestamp format -->
+        <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
+        
+        <!-- Custom CSS -->
+        <css>
+        </css>
+        
+        <!-- Custom JavaScript -->
+        <js>
+        </js>
+    </configuration>
+</extentreports>

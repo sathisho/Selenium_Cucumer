@@ -1,0 +1,258 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║         SELENIUM CUCUMBER BDD FRAMEWORK - QUICK START GUIDE                ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📦 WHAT'S IN THIS ZIP?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+A complete, production-ready Selenium automation framework with:
+
+✓ Page Object Model (POM) design pattern
+✓ Cucumber BDD with Gherkin syntax
+✓ TestNG for test execution
+✓ Sample test cases (Login & Products)
+✓ Automatic browser driver management
+✓ Beautiful HTML reports with ExtentReports
+✓ Screenshot capture on failures
+✓ Comprehensive logging
+✓ Ready-to-use utility classes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 PREREQUISITES (Install these first!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Java JDK 11 or higher
+   Download: https://www.oracle.com/java/technologies/downloads/
+   Verify: Open terminal/cmd and type: java -version
+
+2. Maven 3.6 or higher
+   Download: https://maven.apache.org/download.cgi
+   Verify: Open terminal/cmd and type: mvn -version
+
+3. IDE (Choose one):
+   - IntelliJ IDEA (Recommended) - https://www.jetbrains.com/idea/download/
+   - Eclipse - https://www.eclipse.org/downloads/
+   - VS Code with Java extensions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 SETUP IN 5 STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Extract the zip file
+        └─ Extract to a folder like: C:\Projects\selenium-cucumber-framework
+
+STEP 2: Open in IDE
+        
+        IntelliJ IDEA:
+        1. Open IntelliJ IDEA
+        2. File → Open
+        3. Select the selenium-cucumber-framework folder
+        4. Click OK
+        5. Wait for Maven to download dependencies (bottom-right progress bar)
+        
+        Eclipse:
+        1. Open Eclipse
+        2. File → Import → Maven → Existing Maven Projects
+        3. Browse to selenium-cucumber-framework folder
+        4. Click Finish
+        5. Wait for dependencies to download
+
+STEP 3: Install Dependencies
+        
+        Open Terminal/Command Prompt in project folder and run:
+        
+        mvn clean install
+        
+        This downloads all required libraries (Selenium, Cucumber, etc.)
+        Takes 2-5 minutes depending on internet speed.
+
+STEP 4: Run Your First Test
+        
+        Option A - From Command Line:
+        mvn clean test
+        
+        Option B - From IDE:
+        Right-click on TestRunner.java → Run 'TestRunner'
+
+STEP 5: View Reports
+        
+        After tests complete, open:
+        test-output/reports/ExtentReport.html
+        
+        Double-click to open in browser - you'll see a beautiful report!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 SAMPLE COMMANDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Run all tests
+mvn clean test
+
+# Run only smoke tests
+mvn clean test -Dcucumber.filter.tags="@smoke"
+
+# Run smoke OR regression tests
+mvn clean test -Dcucumber.filter.tags="@smoke or @regression"
+
+# Run specific feature file
+mvn clean test -Dcucumber.features="src/test/resources/features/Login.feature"
+
+# Check if everything is set up correctly (doesn't run tests)
+mvn clean test -Dcucumber.options="--dry-run"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Edit: src/test/resources/config.properties
+
+# Change browser (chrome, firefox, edge)
+browser=chrome
+
+# Run in headless mode (no browser window)
+headless=false
+
+# Change timeouts
+implicit.wait=10
+explicit.wait=20
+
+# Change application URL
+base.url=https://www.saucedemo.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 PROJECT STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+selenium-cucumber-framework/
+├── src/main/java/
+│   ├── hooks/                  ← Setup/Teardown code
+│   ├── pages/                  ← Page Objects (LoginPage, ProductsPage)
+│   └── utils/                  ← Utility classes
+│
+├── src/test/java/
+│   ├── runners/                ← TestRunner (execution entry point)
+│   └── stepdefinitions/        ← Step Definitions (Cucumber steps)
+│
+├── src/test/resources/
+│   ├── features/               ← Feature files (Login.feature, Products.feature)
+│   ├── config.properties       ← Configuration
+│   └── extent.properties       ← Report configuration
+│
+├── pom.xml                     ← Maven dependencies
+├── testng.xml                  ← TestNG configuration
+└── README.md                   ← Detailed documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✍️ YOUR FIRST TEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+To create a new test:
+
+1. Create Feature File: src/test/resources/features/MyFeature.feature
+   
+   Feature: My New Feature
+     @smoke
+     Scenario: My first test
+       Given I do something
+       When I do something else
+       Then I see the result
+
+2. Create Step Definitions: src/test/java/stepdefinitions/MySteps.java
+   
+   @Given("I do something")
+   public void i_do_something() {
+       // Your code here
+   }
+
+3. Run: mvn clean test
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: mvn command not found
+Solution: Install Maven and add to system PATH
+
+Problem: java command not found
+Solution: Install Java JDK and add to system PATH
+
+Problem: Tests not starting
+Solution: Run "mvn clean install" first to download dependencies
+
+Problem: Browser doesn't open
+Solution: Check browser is installed. WebDriverManager will auto-download driver
+
+Problem: Element not found errors
+Solution: Increase wait times in config.properties (implicit.wait, explicit.wait)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 LEARNING RESOURCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. README.md - Comprehensive documentation with examples
+2. Selenium_Java_Cucumber_BDD_Guide.md - Detailed guide with all concepts
+3. Sample feature files in src/test/resources/features/
+4. Sample page objects in src/main/java/pages/
+5. Official Docs:
+   - Selenium: https://www.selenium.dev/documentation/
+   - Cucumber: https://cucumber.io/docs/cucumber/
+   - TestNG: https://testng.org/doc/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 WHAT TO DO NEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Complete the setup steps above
+2. Run the sample tests: mvn clean test
+3. View the HTML report
+4. Explore the sample code:
+   - Feature files (Login.feature, Products.feature)
+   - Page Objects (LoginPage.java, ProductsPage.java)
+   - Step Definitions (LoginSteps.java, ProductSteps.java)
+5. Modify config.properties to test your own application
+6. Create your first feature file and page object
+7. Read the detailed guide: Selenium_Java_Cucumber_BDD_Guide.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+☐ Java JDK installed (java -version works)
+☐ Maven installed (mvn -version works)
+☐ IDE installed and project opened
+☐ Dependencies downloaded (mvn clean install)
+☐ First test run successful (mvn clean test)
+☐ Report opened and verified
+☐ Explored sample code
+☐ Read README.md
+☐ Ready to create first test!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 READY TO START!
+
+If you've completed the setup, you're all set!
+
+Run your first test:
+    mvn clean test
+
+Then open the report:
+    test-output/reports/ExtentReport.html
+
+Happy Testing! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need help? Check README.md for detailed documentation!
