@@ -45,11 +45,6 @@ public class ProductSteps {
             "Cart count doesn't match. Expected: " + expectedCount + ", Actual: " + actualCount);
     }
     
-    @Given("User adds product {string} to cart")
-    public void given_user_adds_product_to_cart(String productName) {
-        productsPage.addProductToCart(productName);
-    }
-    
     @When("User removes product {string} from cart")
     public void user_removes_product_from_cart(String productName) {
         productsPage.removeProductFromCart(productName);

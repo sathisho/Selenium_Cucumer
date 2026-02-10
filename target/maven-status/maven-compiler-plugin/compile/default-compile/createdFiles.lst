@@ -1,7 +1,0 @@
-utils/ConfigReader.class
-utils/ScreenshotUtil.class
-utils/SeleniumActions.class
-utils/DriverManager.class
-pages/ProductsPage.class
-pages/LoginPage.class
-hooks/Hooks.class
