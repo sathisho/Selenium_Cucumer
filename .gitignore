@@ -1,0 +1,29 @@
+/.idea/
+/.vscode/
+.DS_Store
+target/
+/out/
+*.iml
+*.log
+logs/
+test-output/
+allure-results/
+node_modules/
+.env
+.env.local
+.mvn/wrapper/maven-wrapper.jar
+# IntelliJ
+*.iws
+*.ipr
+
+# macOS
+.DS_Store
+
+# Maven
+/dependency-reduced-pom.xml
+/buildNumber.properties
+
+# Eclipse
+.classpath
+.project
+.settings/

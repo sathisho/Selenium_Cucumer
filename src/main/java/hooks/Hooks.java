@@ -48,13 +48,12 @@ public class Hooks {
     
     @AfterStep
     public void afterStep(Scenario scenario) {
-        // Optional: Take screenshot after each step for debugging
-        // Warning: This will create many screenshots
-        /*
-        if (scenario.isFailed()) {
+        // Take screenshot after each step
+        try {
             byte[] screenshot = ScreenshotUtil.takeScreenshotAsBytes(driver);
-            scenario.attach(screenshot, "image/png", "Step Screenshot");
+            scenario.attach(screenshot, "image/png", "Step - " + scenario.getName());
+        } catch (Exception e) {
+            System.out.println("Could not capture screenshot: " + e.getMessage());
         }
-        */
     }
 }

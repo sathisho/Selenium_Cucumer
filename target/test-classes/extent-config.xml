@@ -2,7 +2,7 @@
 <extentreports>
     <configuration>
         <!-- Report theme: STANDARD or DARK -->
-        <theme>STANDARD</theme>
+        <theme>DARK</theme>
         
         <!-- Document encoding -->
         <encoding>UTF-8</encoding>
@@ -11,16 +11,35 @@
         <protocol>HTTPS</protocol>
         
         <!-- Title of the document -->
-        <documentTitle>Automation Test Report</documentTitle>
+        <documentTitle>Selenium Automation Test Report</documentTitle>
         
         <!-- Name of the report -->
-        <reportName>Selenium Cucumber BDD Test Results</reportName>
+        <reportName>Selenium Cucumber BDD - Test Execution Report</reportName>
         
         <!-- Timestamp format -->
         <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
         
-        <!-- Custom CSS -->
+        <!-- Show log statements -->
+        <logStatusFilter>0</logStatusFilter>
+        
+        <!-- Custom CSS for better styling -->
         <css>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+            .card {
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                border-radius: 8px;
+            }
+            .test-passed {
+                background-color: #d4edda;
+                color: #155724;
+            }
+            .test-failed {
+                background-color: #f8d7da;
+                color: #721c24;
+            }
         </css>
         
         <!-- Custom JavaScript -->

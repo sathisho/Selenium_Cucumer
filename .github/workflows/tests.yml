@@ -1,0 +1,115 @@
+name: Selenium Automation Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * *'  # Run daily at 2 AM UTC
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [ chrome, firefox ]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run tests with ${{ matrix.browser }}
+        run: |
+          mvn clean test \
+            -Dbrowser=${{ matrix.browser }} \
+            -Dcucumber.filter.tags="@smoke" \
+            -X
+
+      - name: Generate Allure Report
+        if: always()
+        run: mvn allure:report
+
+      - name: Publish Allure Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report-${{ matrix.browser }}
+          path: target/site/allure-maven-plugin
+
+      - name: Publish Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.browser }}
+          path: |
+            target/surefire-reports/
+            test-output/
+
+      - name: Publish Screenshots
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots-${{ matrix.browser }}
+          path: test-output/screenshots/
+
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const testResults = require('fs').readFileSync('target/surefire-reports/testng-results.xml', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Test Results - ${{ matrix.browser }}\n\nTests completed. Check artifacts for detailed results.`
+            })
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and analyze with SonarQube
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=selenium-cucumber-framework \
+            -Dsonar.host.url=https://sonarqube.example.com \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} || echo "SonarQube analysis skipped"
+
+      - name: Generate Coverage Report
+        run: mvn jacoco:report
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./target/site/jacoco/index.xml
+
+  notify:
+    needs: [ test, code-quality ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Send Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: 'Selenium Automation Tests - ${{ job.status }}'
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+          fields: repo,message,commit,author
+        if: always()

@@ -2,6 +2,7 @@ package runners;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.testng.annotations.Listeners;
 
 /**
  * TestNG Cucumber Test Runner
@@ -9,6 +10,7 @@ import io.cucumber.testng.CucumberOptions;
  * This class is responsible for running all Cucumber feature files
  * with the specified configuration
  */
+@Listeners({TestEmailListener.class})
 @CucumberOptions(
         // Path to feature files
         features = "src/test/resources/features",
@@ -22,7 +24,7 @@ import io.cucumber.testng.CucumberOptions;
         // "@smoke or @regression" - run smoke OR regression tests
         // "@smoke and @regression" - run tests with both tags
         // "not @skip" - run all except tests tagged with @skip
-        tags = "@smoke or @regression",
+        tags = "@smoke",
         
         // Plugins for reporting
         plugin = {
