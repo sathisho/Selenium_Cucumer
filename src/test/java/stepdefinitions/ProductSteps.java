@@ -108,11 +108,24 @@ public class ProductSteps {
     
     @Then("User should see cart page with {int} items")
     public void user_should_see_cart_page_with_items(int expectedItems) {
-        String currentUrl = DriverManager.getDriver().getCurrentUrl();
-        Assert.assertTrue(currentUrl.contains("cart"), 
-            "User should be on cart page. Current URL: " + currentUrl);
+        // Wait and verify cart page is displayed
+        pages.CartPage cartPage = new pages.CartPage(DriverManager.getDriver());
+        Assert.assertTrue(cartPage.isCartPageDisplayed(),
+            "User should be on cart page. Current URL: " + DriverManager.getDriver().getCurrentUrl());
         
-        // You can add more verification for item count in cart page
-        // For now, just verify we're on cart page
+        // TODO: verify exact item count on cart page if needed
+    }
+
+    @When("User clicks on checkout")
+    public void user_clicks_on_checkout() {
+        pages.CartPage cartPage = new pages.CartPage(DriverManager.getDriver());
+        cartPage.clickCheckout();
+    }
+
+    @Then("User should be navigated to checkout information page")
+    public void user_should_be_navigated_to_checkout_information_page() {
+        pages.CheckoutPage checkoutPage = new pages.CheckoutPage(DriverManager.getDriver());
+        Assert.assertTrue(checkoutPage.isCheckoutInformationPageDisplayed(),
+            "User should be on checkout information page. Current URL: " + DriverManager.getDriver().getCurrentUrl());
     }
 }
