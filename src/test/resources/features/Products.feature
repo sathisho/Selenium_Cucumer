@@ -51,3 +51,10 @@ Feature: Product Shopping Functionality
     And User adds product "Sauce Labs Bike Light" to cart
     And User clicks on shopping cart
     Then User should see cart page with 2 items
+
+  @e2e @regression
+  Scenario: Proceed to checkout from cart page
+    When User adds product "Sauce Labs Backpack" to cart
+    And User clicks on shopping cart
+    And User clicks on checkout
+    Then User should be navigated to checkout information page
