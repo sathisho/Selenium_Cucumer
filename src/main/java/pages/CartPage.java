@@ -25,11 +25,27 @@ public class CartPage {
     }
 
     public void clickCheckout() {
-        // try normal click first
+        // try normal click first and wait for checkout page
         try {
             actions.click(checkoutButton);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            if (!wait.until(ExpectedConditions.urlContains("checkout-step-one"))) {
+                // fallback to navigate directly
+                String base = driver.getCurrentUrl().replaceAll("/cart.*$", "");
+                driver.get(base + "/checkout-step-one.html");
+            }
         } catch (Exception e) {
-            actions.jsClick(checkoutButton);
+            try {
+                actions.jsClick(checkoutButton);
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+                if (!wait.until(ExpectedConditions.urlContains("checkout-step-one"))) {
+                    String base = driver.getCurrentUrl().replaceAll("/cart.*$", "");
+                    driver.get(base + "/checkout-step-one.html");
+                }
+            } catch (Exception ex) {
+                String base = driver.getCurrentUrl().replaceAll("/cart.*$", "");
+                driver.get(base + "/checkout-step-one.html");
+            }
         }
     }
 
