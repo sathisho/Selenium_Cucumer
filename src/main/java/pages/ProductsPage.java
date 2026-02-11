@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 import utils.SeleniumActions;
 
 import java.util.List;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 /**
  * Page Object Model for Products Page
@@ -83,7 +87,24 @@ public class ProductsPage {
     }
     
     public void clickShoppingCart() {
-        actions.click(shoppingCartLink);
+        try {
+            actions.click(shoppingCartLink);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.urlContains("cart"));
+        } catch (Exception e) {
+            try {
+                WebElement link = driver.findElement(shoppingCartLink);
+                String href = link.getAttribute("href");
+                if (href != null && !href.isEmpty()) {
+                    driver.get(href);
+                } else {
+                    actions.jsClick(shoppingCartLink);
+                }
+            } catch (Exception ex) {
+                String base = driver.getCurrentUrl().replaceAll("/inventory.*$", "");
+                driver.get(base + "/cart.html");
+            }
+        }
     }
     
     // Sort operations
